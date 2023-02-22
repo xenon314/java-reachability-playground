@@ -21,21 +21,22 @@ jobs:
 
   build-code:
     runs-on: ubuntu-latest
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
-        cache: maven
+    steps:
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
+          cache: maven
 
-    - name: Build with Maven
-      run: |
-        mvn verify sonar:sonar \
-        -Dsonar.projectKey=sonarcloud-analysis_java \
-        -Dsonar.organization=sonarcloud-analysis \
-        -Dsonar.host.url=https://sonarcloud.io
+      - name: Build with Maven
+        run: |
+          mvn verify sonar:sonar \
+          -Dsonar.projectKey=sonarcloud-analysis_java \
+          -Dsonar.organization=sonarcloud-analysis \
+          -Dsonar.host.url=https://sonarcloud.io
         
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
