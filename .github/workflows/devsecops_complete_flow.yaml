@@ -42,7 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  security-scan:
+  snyk-security-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -59,7 +59,7 @@ jobs:
         with:
           sarif_file: snyk.sarif
 
-  zap-scan:
+  dast-zap-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
